@@ -5,7 +5,6 @@ from database import init_db, add_expense, get_all_expenses, update_expense, del
 from currency import convert_to_inr, get_conversion_info, SUPPORTED_CURRENCIES
 from charts import make_category_pie, make_monthly_bar, make_budget_bar, make_daily_line
 
-# ─── Page Config ──────────────────────────────────────────────
 st.set_page_config(
     page_title="SpendWise",
     page_icon="💸",
@@ -18,7 +17,7 @@ init_db()
 CATEGORIES = ["Food", "Transport", "Utilities", "Health",
               "Shopping", "Entertainment", "Education", "Other"]
 
-# ─── Custom CSS ───────────────────────────────────────────────
+# CSS as a string to style the app inside streamlit method 
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -181,10 +180,6 @@ label {
 </style>
 """, unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════
-# SIDEBAR
-# ══════════════════════════════════════════════════════════════
 with st.sidebar:
     st.markdown("""
     <div style='text-align:center; padding: 20px 0 8px 0;'>
@@ -206,10 +201,6 @@ with st.sidebar:
 </div>
 """, unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════
-# CHART THEME
-# ══════════════════════════════════════════════════════════════
 CHART_THEME = dict(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(19,19,31,0.6)",
@@ -217,10 +208,7 @@ CHART_THEME = dict(
     title_font=dict(color="#e2e8f0", size=15),
 )
 
-
-# ══════════════════════════════════════════════════════════════
-# PAGE 1 — DASHBOARD
-# ══════════════════════════════════════════════════════════════
+#Dashboard Page 
 if page == "📊 Dashboard":
     st.title("Dashboard")
 
@@ -281,11 +269,7 @@ if page == "📊 Dashboard":
         fig.update_layout(**CHART_THEME)
         st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
     
-
-
-# ══════════════════════════════════════════════════════════════
-# PAGE 2 — ADD EXPENSE
-# ══════════════════════════════════════════════════════════════
+#Expenses Page
 elif page == "➕ Expenses":
     st.title("Expenses")
     with st.form("add_form", clear_on_submit=True):
@@ -355,10 +339,7 @@ elif page == "➕ Expenses":
                 st.rerun()
   
 
-
-# ══════════════════════════════════════════════════════════════
-# PAGE 4 — BUDGETS
-# ══════════════════════════════════════════════════════════════
+#Budgets page 
 elif page == "🎯 Budgets":
     st.title("Budgets")
     st.markdown("<div style='color:#718096; margin-bottom:24px;'>Set monthly spending limits. Get alerts when you're close to exceeding them.</div>", unsafe_allow_html=True)
